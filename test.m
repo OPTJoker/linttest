@@ -50,7 +50,7 @@ LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__n
 /// pageTitle:页面名称
 /// 例如：{@"contentId":@"", @"contentType":@(2), @"pageTitle":@"案例详情页", @"contentTitle":@""}
 /// type 1:400  2:IM
-LJRouterRegistAction(@"家装商机请求400和IM", jz_business_400_IM, void, (NSUInteger)adId, (NSString *)uiCode, (NSUInteger)type, (NSString *)IMMsg, (NSDictionary *(^)(void))parametersBlcok) {
+
     if (type == JZBusinessOpportunity400AndIMType400) {
         [JZBusinessManager request400WithAdId:adId uiCode:uiCode parametersBlcok:^JZBusinessOpportunityPayloadModel * _Nonnull{
             JZBusinessOpportunityPayloadModel *payloadMode = [JZBusinessOpportunityPayloadModel yy_modelWithJSON:parametersBlcok?parametersBlcok():@{}];
