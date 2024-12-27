@@ -241,18 +241,7 @@ LJRouterRegistAction(@"自动上报留资", jz_present_clue_report, void, (NSUIn
     }];
 }
 
-LJRouterRegistAction(@"跨端-打开微信APP，带返回值", lj_open_wechat, BOOL, (NSString *)wxLink, (LJRouterCallbackBlock) callBack) {
-    NSURL *tempUrl = [NSURL URLWithString:wxLink];
-    if ([[UIApplication sharedApplication] canOpenURL:tempUrl]) {
-        [[UIApplication sharedApplication] openURL:tempUrl options:nil completionHandler:^(BOOL success) {
-            callBack(success ? @"1" : @"0", success);
-        }];
-        return YES;
-    } else {
-        callBack(@"0", NO);
-        return NO;
-    }
-}
+
 
 LJRouterRegistAction(@"家装打开微信APP", jz_business_open_wechat, BOOL, (NSString *)wxLink) {
     NSURL *tempUrl = [NSURL URLWithString:wxLink];
@@ -262,6 +251,19 @@ LJRouterRegistAction(@"家装打开微信APP", jz_business_open_wechat, BOOL, (N
         }];
         return YES;
     } else {
+        return NO;
+    }
+}
+
+LJRouterRegistAction(@"跨端-打开微信APP，带返回值", lj_open_wechat, BOOL, (NSString *)wxLink, (LJRouterCallbackBlock) callBack) {
+    NSURL *tempUrl = [NSURL URLWithString:wxLink];
+    if ([[UIApplication sharedApplication] canOpenURL:tempUrl]) {
+        [[UIApplication sharedApplication] openURL:tempUrl options:nil completionHandler:^(BOOL success) {
+            callBack(success ? @"1" : @"0", success);
+        }];
+        return YES;
+    } else {
+        callBack(@"0", NO);
         return NO;
     }
 }
