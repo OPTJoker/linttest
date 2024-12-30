@@ -68,7 +68,7 @@ LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__n
     }
 }
 
-LJRouterRegistAction(@"家装商机IM", jz_business_IM, void, (NSUInteger)adId, (NSString *)uiCode,(NSString *)IMMsg, (NSDictionary *)IMCardInfo, (NSString *)IMClickUrl, (NSDictionary *(^)(void))parametersBlcok) {
+
     [JZBusinessManager requestIMWithAdId:adId uiCode:uiCode parametersBlcok:^JZBusinessOpportunityPayloadModel * _Nonnull{
         JZBusinessOpportunityPayloadModel *payloadMode = [JZBusinessOpportunityPayloadModel yy_modelWithJSON:parametersBlcok?parametersBlcok():@{}];
         return payloadMode;
