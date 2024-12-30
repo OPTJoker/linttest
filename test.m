@@ -87,7 +87,7 @@ LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__n
 /// @param uiCode 页面的UICode
 /// @param IMMsg 打招呼首句文本信息
 /// @param parametersBlcok 参数
-LJRouterRegistAction(@"家装商机IM，纯文本消息", jz_business_IM_Text, void, (NSUInteger)adId, (NSString *)uiCode,(NSString *)IMMsg, (NSDictionary *(^)(void))parametersBlcok) {
+    LJRouterRegistAction(@"家装商机IM，纯文本消息", jz_business_IM_Text, void, (NSUInteger)adId, (NSString *)uiCode,(NSString *)IMMsg, (NSDictionary *(^)(void))parametersBlcok) {
     [JZBusinessManager requestIMWithAdId:adId uiCode:uiCode parametersBlcok:^JZBusinessOpportunityPayloadModel * _Nonnull{
         JZBusinessOpportunityPayloadModel *payloadMode = [JZBusinessOpportunityPayloadModel yy_modelWithJSON:parametersBlcok?parametersBlcok():@{}];
         return payloadMode;
