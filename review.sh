@@ -38,12 +38,17 @@ done
 
 #检测图片大小是否超过上限
 sh find_router.sh
-echo "结果是：$?"
-if [[ "$?" == 1 ]]
-then
-    echo ">>>> router-hit"
-else
-    echo ">>>> not match router-find"
+if [[ "$?" == "1" ]]; then
+    echo "你确定要删掉上述的桥方法么 (请输入：y/n)?"
+    read del_router_choose
+    lower_choose=$(echo "$del_router_choose" | tr 'A-Z' 'a-z')
+    # echo "lower: $lower_choose"
+    if [ "$lower_choose" == "y" ] || [ "$lower_choose" == "yes" ]; then
+        echo ''
+    else
+        echo "你选择了: 否\n请恢复误删的桥后再重新提交"
+        exit 1
+    fi
 fi
 
 root_path=$(cd `dirname $0`; pwd)

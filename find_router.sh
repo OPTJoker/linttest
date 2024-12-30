@@ -1,29 +1,31 @@
 #!/bin/bash
 
-reg='{1}\s*LJRouterRegistAction{1}.+'
-del_reg="\-$reg"
-add_reg="\+$reg"
+# reg='{1}\s*LJRouterRegistAction{1}.+'
+# del_reg="\-$reg"
+# add_reg="\+$reg"
 
-isStrInArr(){
+# # 检查diff，有没有router变动，如果只有-router行而没有+router，则认为是有桥被删了
+# git diff HEAD~ HEAD |grep -E "$del_reg" > delete_temp.txt
+# git diff HEAD~ HEAD |grep -E "$add_reg" > add_temp.txt
+
+
+# ---------- TOOLs -------------
+# matched:1, not match:0
+isStrInArr(){ 
     local del_str=$1
     local add_str="+${del_str:1}"
     local arr=$2
-    local res=0
     
     # 遍历数组
     for element in "${arr[@]}"; do
         if [[ "$element" == "$add_str" ]]; then
-        echo "match: $add_str"
-        res=1
+            echo "match: $add_str"
+        return 1
         fi
     done
-    return $res
+    return 0
 }
-
-
-# 检查diff，有没有router变动，如果只有-router行而没有+router，则认为是有桥被删了
-git diff HEAD~ HEAD |grep -E "$del_reg" > delete_temp.txt
-git diff HEAD~ HEAD |grep -E "$add_reg" > add_temp.txt
+# ---------- TOOLs END -------------
 
 # 遍历delete_temp,逐行check，如果有减无加，就报告警告
 resArr=()
@@ -42,34 +44,34 @@ while IFS= read -r line; do
     add_lines+=("$line")
 done < add_temp.txt
 
-# rm -rf delete_temp.txt
-# rm -rf add_temp.txt
+rm -rf delete_temp.txt
+rm -rf add_temp.txt
 
 # 遍历
 search(){
     for line in "${del_lines[@]}"; do
-        # echo "elm: $line"
-        isStrInArr $line $add_lines
+        # echo "elm:\n$line"
+        isStrInArr "$line" $add_lines
         local find=$?
-
-        if [ $find == 1 ]; then 
-        resArr+=("$line")
+        # echo "find: $find"
+        
+        if [ $find == 0 ]; then 
+            resArr+=("$line")
         fi
     done
 }
 search
 
+# 没删桥返回0，删掉了桥返回1
 run_check(){
     if [ ${#resArr[@]} -gt 0 ]; then
-        local final_res=1; #发现删桥了，返回1
         echo "————————————————————————————————"
-        echo "哥们，你貌似删掉了一些路由，他们是：\n"
+        echo "哥们，你貌似删掉了下面这些路由：\n"
         echo $resArr
         echo "————————————————————————————————"
-
-        exit 10
+        exit 1
     fi
-    exit 20
+    exit 0
 }
 
 run_check
