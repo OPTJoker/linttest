@@ -41,7 +41,7 @@
 
 @implementation JZBusinessManager
 
-
+LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__nullable dispatch_block_t)completeBlock);
 
 /// parametersBlcok 返回格式
 /// contentId:页面请求使用的ID
@@ -68,7 +68,7 @@
     }
 }
 
-LJRouterRegistAction(@"家装商机IM", jz_business_IM, void, (NSUInteger)adId, (NSString *)uiCode,(NSString *)IMMsg, (NSDictionary *)IMCardInfo, (NSString *)IMClickUrl, (NSDictionary *(^)(void))parametersBlcok) {
+DEL_LJRouterRegistAction(@"家装商机IM", jz_business_IM, void, (NSUInteger)adId, (NSString *)uiCode,(NSString *)IMMsg, (NSDictionary *)IMCardInfo, (NSString *)IMClickUrl, (NSDictionary *(^)(void))parametersBlcok) {
     [JZBusinessManager requestIMWithAdId:adId uiCode:uiCode parametersBlcok:^JZBusinessOpportunityPayloadModel * _Nonnull{
         JZBusinessOpportunityPayloadModel *payloadMode = [JZBusinessOpportunityPayloadModel yy_modelWithJSON:parametersBlcok?parametersBlcok():@{}];
         return payloadMode;
