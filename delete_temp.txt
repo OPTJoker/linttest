@@ -1,0 +1,2 @@
+--+-LJRouterRegistAction(@"跨端-打开微信APP，带返回值", lj_open_wechat, BOOL, (NSString *)wxLink, (LJRouterCallbackBlock) callBack) {
+--+-LJRouterRegistAction(@"家装打开微信APP", jz_business_open_wechat, BOOL, (NSString *)wxLink) {

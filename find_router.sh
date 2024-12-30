@@ -60,16 +60,16 @@ search(){
 search
 
 run_check(){
-    local final_res=1
     if [ ${#resArr[@]} -gt 0 ]; then
-        local final_res=0; #发现删桥了，返回0
+        local final_res=1; #发现删桥了，返回1
         echo "————————————————————————————————"
         echo "哥们，你貌似删掉了一些路由，他们是：\n"
         echo $resArr
         echo "————————————————————————————————"
 
-        echo "\n你确定要删掉上述这些述路由么? (y/n)"
+        exit 10
     fi
-    return $final_res
+    exit 20
 }
+
 run_check

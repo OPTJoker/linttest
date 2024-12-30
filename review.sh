@@ -38,7 +38,7 @@ done
 
 #检测图片大小是否超过上限
 sh find_router.sh
-echo 'run find-router'
+echo "结果是：$?"
 if [[ "$?" == 1 ]]
 then
     echo ">>>> router-hit"
