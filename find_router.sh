@@ -6,15 +6,18 @@ add_reg="\+$reg"
 
 isStrInArr(){
     local del_str=$1
-    add_str="+${del_str:1}"
+    local add_str="+${del_str:1}"
     local arr=$2
+    local res=0
+    
     # 遍历数组
     for element in "${arr[@]}"; do
         if [[ "$element" == "$add_str" ]]; then
-            return 1
+        echo "match: $add_str"
+        res=1
         fi
     done
-    return 0
+    return $res
 }
 
 
@@ -39,8 +42,8 @@ while IFS= read -r line; do
     add_lines+=("$line")
 done < add_temp.txt
 
-rm -rf delete_temp.txt
-rm -rf add_temp.txt
+# rm -rf delete_temp.txt
+# rm -rf add_temp.txt
 
 # 遍历
 search(){
@@ -49,23 +52,24 @@ search(){
         isStrInArr $line $add_lines
         local find=$?
 
-        if [ $find == 0 ]
-        then 
+        if [ $find == 1 ]; then 
         resArr+=("$line")
         fi
     done
 }
-
 search
 
-echo "————————————————————————————————"
-echo "哥们，你貌似删掉了一些路由，他们是：\n"
-echo $resArr
-echo "————————————————————————————————"
+run_check(){
+    local final_res=1
+    if [ ${#resArr[@]} -gt 0 ]; then
+        local final_res=0; #发现删桥了，返回0
+        echo "————————————————————————————————"
+        echo "哥们，你貌似删掉了一些路由，他们是：\n"
+        echo $resArr
+        echo "————————————————————————————————"
 
-echo "\n你确定要删掉上述这些述路由么? (y/n)"
-
-
-
-
-
+        echo "\n你确定要删掉上述这些述路由么? (y/n)"
+    fi
+    return $final_res
+}
+run_check

@@ -41,7 +41,7 @@
 
 @implementation JZBusinessManager
 
-LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__nullable dispatch_block_t)completeBlock);
+ LJRouterUsePage(login_center, (NSInteger)from, (NSInteger)currentLoginType, (__nullable dispatch_block_t)completeBlock);
 
 /// parametersBlcok 返回格式
 /// contentId:页面请求使用的ID

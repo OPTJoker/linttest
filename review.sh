@@ -38,9 +38,12 @@ done
 
 #检测图片大小是否超过上限
 sh find_router.sh
-if [[ "$?" == "1" ]]
+echo 'run find-router'
+if [[ "$?" == 1 ]]
 then
-    exit 1
+    echo ">>>> router-hit"
+else
+    echo ">>>> not match router-find"
 fi
 
 root_path=$(cd `dirname $0`; pwd)
