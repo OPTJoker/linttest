@@ -2,6 +2,10 @@
 
 git_prefix=".git"
 
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m'
+
 install_commit_msg(){ 
     echo ""
 }
@@ -39,14 +43,14 @@ done
 #检测图片大小是否超过上限
 sh find_router.sh
 if [[ "$?" == "1" ]]; then
-    echo "你确定要删掉上述的桥方法么 (请输入：y/n)?"
+    echo "${RED}⚠️ 你确定要删除或改动上述桥方法么 (请输入：y/n)?"
     read del_router_choose
     lower_choose=$(echo "$del_router_choose" | tr 'A-Z' 'a-z')
     # echo "lower: $lower_choose"
     if [ "$lower_choose" == "y" ] || [ "$lower_choose" == "yes" ]; then
-        echo ''
+        echo "${NC}"
     else
-        echo "你选择了: 否\n请恢复误删的桥后再重新提交"
+        echo "你选择了: 否 请恢复误操作的桥后再重新提交"
         exit 1
     fi
 fi

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# reg='{1}\s*LJRouterRegistAction{1}.+'
-# del_reg="\-$reg"
-# add_reg="\+$reg"
+reg='{1}\s*LJRouterRegistAction{1}.+'
+del_reg="\-$reg"
+add_reg="\+$reg"
 
-# # 检查diff，有没有router变动，如果只有-router行而没有+router，则认为是有桥被删了
-# git diff HEAD~ HEAD |grep -E "$del_reg" > delete_temp.txt
-# git diff HEAD~ HEAD |grep -E "$add_reg" > add_temp.txt
+# 检查diff，有没有router变动，如果只有-router行而没有+router，则认为是有桥被删了
+git diff HEAD~ HEAD |grep -E "$del_reg" > delete_temp.txt
+git diff HEAD~ HEAD |grep -E "$add_reg" > add_temp.txt
 
 
 # ---------- TOOLs -------------
@@ -62,13 +62,17 @@ search(){
 }
 search
 
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m'
+
 # 没删桥返回0，删掉了桥返回1
 run_check(){
     if [ ${#resArr[@]} -gt 0 ]; then
-        echo "————————————————————————————————"
-        echo "哥们，你貌似删掉了下面这些路由：\n"
-        echo $resArr
-        echo "————————————————————————————————"
+        echo "${YELLOW}————————————————————————————————"
+        echo "${YELLOW}哥们，你貌似删除或改动了下面这些路由：\n"
+        echo "${YELLOW}$resArr"
+        echo "${YELLOW}————————————————————————————————\n"
         exit 1
     fi
     exit 0
